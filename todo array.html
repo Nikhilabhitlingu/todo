@@ -1,0 +1,109 @@
+ 
+
+<html>
+<head>
+  <style>
+body{
+  background-image: url("https://wallpaperaccess.com/full/1489353.jpg");
+  background-repeat: no-repeat;
+  background-size: 1300px 700px;
+}
+input{
+  color: rgb(16, 1, 27);
+  background-color: rgb(233, 245, 241);
+  height: 25px;
+  width: 250px;
+}
+div{
+  padding : 50px 10px;
+  margin: 50px 200px;
+  text-align: center;
+  
+  background-color: transparent;
+  box-shadow: 2px 2px 2px 5px rgb(21, 18, 18);
+  
+}
+button{
+  color: aliceblue;
+  background-color: black;
+}
+
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;">To-Do List</h1>
+  <div>
+  <input type="text" id="taskInputt" placeholder="Enter a task">
+  <button onclick="addTask()">Add Task</button>
+  <ul id="ulList"></ul>
+  </div>
+
+  <script>
+let array = [];
+
+
+function addTask() {
+  const taskInput = document.getElementById('taskInputt');
+  const InputValue = taskInput.value;
+
+  if (InputValue !== '') {
+    array.push(InputValue);
+    taskInput.value = '';
+    console.log(array);
+    displayTasks();
+  }
+}
+
+
+function displayTasks() {
+  const gettingul = document.getElementById('ulList');
+  gettingul.innerHTML = '';
+
+
+  array.forEach((InputValue, index) => {
+    const listItem = document.createElement('li');
+    listItem.innerText = InputValue;
+    listItem.style.textAlign="center";
+    listItem.style.margin ="10px 300px";
+    listItem.style.fontWeight="bolder";
+
+
+    const editButton = document.createElement('button');
+    editButton.innerText = 'Edit';
+    editButton.style.color="white";
+    editButton.style.backgroundColor="grey";
+    editButton.style.margin="5px";
+    editButton.onclick = () => editTask(index);
+
+
+    const deleteButton = document.createElement('button');
+    deleteButton.innerText = 'Delete';
+    deleteButton.style.color="white";
+    deleteButton.style.backgroundColor="grey";
+    deleteButton.style.margin="5px";
+    deleteButton.onclick = () => deleteTask(index);
+
+    listItem.appendChild(editButton);
+    listItem.appendChild(deleteButton);
+    gettingul.appendChild(listItem);
+  });
+}
+
+
+function editTask(index) {
+  const newTask = prompt('Enter the updated task:');
+  if (newTask!== '') {
+    array[index] = newTask;
+    displayTasks();
+  }
+}
+
+
+function deleteTask(index) {
+  array.splice(index,1,);
+  displayTasks();
+}
+</script>
+</body>
+</html>
+
